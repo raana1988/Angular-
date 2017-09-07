@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="js/angular.min.js"></script>
+  <link href="css/style.css" />
+  <title>Document</title>
+</head>
+<body ng-app="myApp">
+  <div ng-controller="ajaxCtrl">
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Rool no</th>
+        <th>presentage</th>
+      </tr>
+      <tr ng-repeat="student in students">
+        <td>{{student.Name}}</td>
+        <td>{{student.RollNo}}</td>
+        <td>{{student.Percentage}}</td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <script>
+    var app = angular.module('myApp', []);
+    app.controller('ajaxCtrl' , function ($scope , $http) {
+      var url = "data.txt";
+      $http.get(url).success( function (response) {
+        $scope.students = response;
+
+      })
+    });
+  </script>
+
+
+
+</body>
+</html>

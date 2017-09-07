@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js">
+    </script>
+    <link href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div ng-app="myApp">
+
+        <p><a href="#addStudent">Add Student</a></p>
+        <p><a href="#viewStudents">View Students</a></p>
+        <div ng-view></div>
+
+        <script type="text/ng-template" id="addStudent.html">
+
+            <h2>Add student</h2>
+            {{message}}
+        </script>
+
+        <script type="text/ng-template" id="viewStudents.html">
+
+            <h2>Addfdgdgdgdfgt</h2>
+            {{message}}
+        </script>
+
+
+
+    </div>
+
+
+
+
+    <script>
+        var mainApp = angular.module('myApp' , ['ngRoute']);
+        mainApp.config(['$routeProvider' ,
+            function ($routeProvider) {
+
+            $routeProvider.
+                when('/addStudent' , {
+                templateUrl : 'addStudent.html',
+                controller : 'AddStudentController'
+
+            }).
+                when('/viewStudents' , {
+                    templateUrl: 'viewStudents.html',
+                    controller: 'ViewStudentsController'
+                }).
+
+                otherwise({
+                    redirectTo: '/addStudent'
+                });
+        }]);
+
+        mainApp.controller('AddStudentController', function($scope) {
+            $scope.message = "This page will be used to display add student form";
+        });
+
+        mainApp.controller('ViewStudentsController', function($scope) {
+            $scope.message = "This page will be used to display all the students";
+        });
+
+
+    </script>
+</body>
+</html>

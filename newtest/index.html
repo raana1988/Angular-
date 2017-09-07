@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="js/angular.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>new angular tutorial point</title>
+  </head>
+  <body ng-app="myApp">
+
+    <div class="" ng-controller="myCtrl">
+      <h2>Welcome to my new {{helloTo.title}} tutorial.</h2>
+    </div>
+
+      <hr>
+
+    <div class="">
+      <p>Enter your name <input type="text" ng-model="name"></p>
+      <h3>Hello {{name}}</h3>
+    </div>
+
+    <hr>
+
+    <div class="" ng-init="countries=[{locale:'en-US',name:'United States'},{locale:'en-GB',name:'United Kingdom'},{locale:'en-FR',name:'France'}]">
+
+      <p>List contries with local</p>
+
+      <ol>
+        <li ng-repeat="country in countries">
+          {{'Country =' + country.name + ' ----  Local =' + country.locale }}
+        </li>
+      </ol>
+
+    </div>
+
+    <hr>
+
+
+    <div class="" ng-init="quantity=1;cost=30;student={firstname:'Raana',lastname:'Azbari',rollno:'101'};marks=[12,45,75,89,90]">
+      <p>Hello student {{student.firstname + "  " + student.lastname}} !</p>
+      <p>Express Book is {{quantity*cost}}</p>
+      <p>Roll no is {{student.rollno}}</p>
+      <p>your mark is {{marks[3]}}</p>
+    </div>
+
+
+    <hr>
+
+
+    <div class="" ng-controller="myStudentCtrl">
+      <table border="0">
+        <tr>
+          <td>First name :</td>
+          <td><input type="text" ng-model="student.firstName"></td>
+        </tr>
+        <tr>
+          <td>Last name :</td>
+          <td><input type="text" ng-model="student.lastName"></td>
+        </tr>
+        <tr>
+          <td>Full name :</td>
+          <td>{{student.fullName() | lowercase }}</td>
+        </tr>
+        <tr>
+          <td>subjects</td>
+          <td>
+            <table>
+              <tr>
+                <th>Name :</th>
+                <th>Mark :</th>
+              </tr>
+              <tr ng-repeat="subject in student.subjects">
+                <td>{{ subject.name }}</td>
+                <td>{{ subject.marks }}</td>
+              </tr>
+            </table>
+
+
+          </td>
+
+        </tr>
+      </table>
+
+    </div>
+
+
+    <hr>
+
+
+    <div class="">
+      <input type="checkbox" ng-model="enableDisableButton">check me!
+      <input type="button" ng-disabled="enableDisableButton" value="click me!">
+    </div>
+
+    <hr>
+
+    <p>Click counter = {{clickno}}</p>
+    <input type="button" ng-click="clickno = clickno + 1" value="click me!">
+
+    <hr>
+
+    <div class="" ng-controller="myEventCtrl">
+      <form name="studentForm" novalidate>
+      <table border="0">
+      <tr>
+          <td>Enter first name:</td>
+          <td>
+          <input name="firstname" type="text" ng-model="firstName" required>
+          <span style="color:red" ng-show="studentForm.firstname.$dirty && studentForm.firstname.$invalid">
+            <span ng-show="studentForm.firstname.$error.required">First Name is required.</span>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>Enter last name: </td>
+        <td>
+          <input name="lastname" type="text" ng-model="lastName" required>
+          <span style="color:red" ng-show="studentForm.lastname.$dirty && studentForm.lastname.$invalid">
+            <span ng-show="studentForm.lastname.$error.required">Last Name is required.</span>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td>
+          <input name="email" type="email" ng-model="email" length="100" required>
+          <span style="color:red" ng-show="studentForm.email.$dirty && studentForm.email.$invalid">
+            <span ng-show="studentForm.email.$error.required">Email is  required.</span>
+            <span ng-show="studentForm.email.$error.email">Invalid email address.</span>
+            </span>
+          </td>
+      </tr>
+      <tr>
+        <td>
+          <button ng-click="reset()">Reset</button>
+        </td>
+        <td>
+          <button
+          ng-disabled="studentForm.firstname.$dirty && studentForm.firstname.$invalid || studentForm.lastname.$dirty && studentForm.lastname.$invalid ||
+          studentForm.email.$dirty && studentForm.email.$invalid"
+          ng-click="submit()">Submit</button>
+        </td>
+      </tr>
+      </table>
+      </form>
+    </div>
+
+
+    <script>
+      var app = angular.module("myApp" , []);
+      app.controller("myCtrl",function($scope){
+
+          $scope.helloTo = {};
+          $scope.helloTo.title= "Angular js";
+      });
+
+
+      app.controller("myStudentCtrl",function($scope){
+
+          $scope.student = {
+            firstName : 'Raana',
+            lastName : 'Azbari',
+            fees:500,
+            subjects:[
+                  {name:'Physics',marks:70},
+                  {name:'Chemistry',marks:80},
+                  {name:'Math',marks:65},
+                  {name:'English',marks:75},
+                  {name:'Hindi',marks:67}
+            ],
+            fullName : function(){
+              var objStudent = $scope.student ;
+              return objStudent.firstName + "    " + objStudent.lastName ;
+            }
+          };
+      });
+
+      app.controller("myEventCtrl" , function($scope){
+        $scope.reset= function(){
+          $scope.firstName = 'Raana';
+          $scope.lastName = 'Azbari';
+          $scope.email = 'raana@yahoo.com';
+        }
+
+        $scope.reset();
+      });
+
+    </script>
+  </body>
+</html>

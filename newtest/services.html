@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js">
+    </script>
+    <link href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="calcCtrl">
+        <p>Enter number <input type="text" ng-model="number" ></p>
+        <button ng-click="square()">X<sup>2</sup></button>
+        <p>result is : {{result}}</p>
+    </div>
+
+
+    <script>
+        var mainApp=angular.module('myApp',[]);
+        mainApp.factory('MathService', function () {
+            var factory = {};
+            factory.multi=function (a ,b) {
+                return a * b ;
+            }
+
+            return factory;
+        });
+
+        mainApp.service('calcService',function (MathService) {
+            this.square = function (a) {
+                return MathService.multi(a*a);
+            }
+
+        });
+
+        mainApp.controller('calcCtrl',function ($scope , calcService) {
+            $scope.square = function () {
+                $scope.result = calcService.square($scope.number)
+            }
+        })
+    </script>
+</body>
+</html>

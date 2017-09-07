@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="js/angular.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Try Angular js</title>
+  </head>
+  <body ng-app="myApp">
+    <div class="" ng-controller="myStudentCtrl">
+      <div ng-include="'main.html'">
+      <div ng-include="'subjects.html'">
+
+      </div>
+
+      </div>
+    </div>
+
+
+
+    <script>
+    var app = angular.module("myApp" , []);
+    app.controller("myStudentCtrl",function($scope){
+
+        $scope.student = {
+          firstName : 'Raana',
+          lastName : 'Azbari',
+          fees:500,
+          subjects:[
+                {name:'Physics',marks:70},
+                {name:'Chemistry',marks:80},
+                {name:'Math',marks:65},
+                {name:'English',marks:75},
+                {name:'Hindi',marks:67}
+          ],
+          fullName : function(){
+            var objStudent = $scope.student ;
+            return objStudent.firstName + "    " + objStudent.lastName ;
+          }
+        };
+    });
+    </script>
+  </body>
+</html>
